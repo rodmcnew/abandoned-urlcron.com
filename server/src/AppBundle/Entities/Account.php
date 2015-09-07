@@ -10,6 +10,38 @@ namespace UrlCron\Entity;
 class Account
 {
     /**
+     * @var int Auto-Incremented Primary Key
+     *
+     * @ORM\Id
+     * @ORM\Column(type="integer")
+     * @ORM\GeneratedValue
+     */
+    protected $id;
+    /**
+     * @var array Array of jobs
+     *
+     * @ORM\OneToMany(targetEntity="Job",mappedBy="account")
+     */
+    protected $jobs;
+    /**
+     * @var string users email
+     *
+     * @ORM\Column(type="string", length=500)
+     */
+    protected $email;
+    /**
+     * @var int minimum selectable interval for this account
+     *
+     * @ORM\Column(type="int")
+     */
+    protected $minInterval;
+    /**
+     * @var int maximum addable jobs for this account
+     *
+     * @ORM\Column(type="int")
+     */
+    protected $maxJobs;
+    /**
      * @return int
      */
     public function getId()
@@ -58,23 +90,18 @@ class Account
     }
 
     /**
-     * @var int Auto-Incremented Primary Key
-     *
-     * @ORM\Id
-     * @ORM\Column(type="integer")
-     * @ORM\GeneratedValue
+     * @return int
      */
-    protected $id;
+    public function getMinInterval()
+    {
+        return $this->minInterval;
+    }
+
     /**
-     * @var array Array of jobs
-     *
-     * @ORM\OneToMany(targetEntity="Job",mappedBy="account")
+     * @param int $minInterval
      */
-    protected $jobs;
-    /**
-     * @var string users email
-     *
-     * @ORM\Column(type="string", length=500)
-     */
-    protected $email;
+    public function setMinInterval($minInterval)
+    {
+        $this->minInterval = $minInterval;
+    }
 }
