@@ -1,44 +1,23 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <!-- Latest compiled and minified CSS -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
-
-    <!-- Optional theme -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap-theme.min.css">
-
-    <!-- Latest compiled and minified JavaScript -->
+    <link rel="stylesheet" type="text/css" href="style.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
     <script async="" src="//www.google-analytics.com/analytics.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.5/angular.min.js"></script>
+    <script src="vendor/datetimepicker.js"></script>
+    <script src="module.js"></script>
     <title>UrlCron - Job scheduling on the web made easy</title>
     <meta name="description"
           content="If your website has a task or job that needs to run periodically, UrlCron can help.">
     <meta name="keywords"
           content="Cron schedule task runner scheduler Simply tell UrlCron the url of your job and know how often you want it to run. UrlCron then regularly sends a post request to the url, running your job!">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <style>
-        .container {
-            max-width: 700px;
-        }
-    </style>
 </head>
-<body ng-app="app">
+<body ng-app="UrlCron">
 
-<nav class="navbar navbar-default">
-    <div class="container-fluid">
-        <div class="navbar-header">
-            <a class="navbar-brand" href="/">UrlCron</a>
-        </div>
-        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-            <ul class="nav navbar-nav navbar-right">
-                <li><a href="coming-soon.html">About Us</a></li>
-                <li><a href="coming-soon.html">Terms of Service</a></li>
-                <li><a href="coming-soon.html">Create Account</a></li>
-                <li><a href="coming-soon.html">Login</a></li>
-            </ul>
-        </div>
-    </div>
-</nav>
+<ng-include src="'nav.html'"></ng-include>
 
 <div class="container">
 

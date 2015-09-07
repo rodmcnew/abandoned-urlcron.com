@@ -1,5 +1,3 @@
-var module = angular.module('UrlCron', ['ui.bootstrap.datetimepicker']);
-
 module.controller('Job', function ($http, $scope) {
     var self = this;
     var jobs = [];
@@ -13,5 +11,8 @@ module.controller('Job', function ($http, $scope) {
     //    function (data) {
     //        jobs = data;
     //    }).error(ajaxError);
+    $scope.jobClick=function(){
+        $('#jobEdit').modal()
+    }
 })
 ;
