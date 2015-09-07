@@ -1,12 +1,12 @@
 <?php
 
-namespace UrlRunner\Model;
+namespace UrlCron\Model;
 
 use Doctrine\ORM\EntityManager;
 use GuzzleHttp\Client;
 use GuzzleHttp\Psr7\Response;
-use UrlRunner\Entity\Job;
-use UrlRunner\Entity\Run;
+use UrlCron\Entity\Job;
+use UrlCron\Entity\Run;
 
 class Runner
 {
@@ -30,7 +30,7 @@ class Runner
 
         $promise = $client->postAsync(
             $job->getUrl(),
-            ['json' => ['message' => 'Thank you for using UrlRunner.com']]
+            ['json' => ['message' => 'Thank you for using UrlCron.com']]
         );
         $promise->then(function (Response $response) use ($run) {
             $this->handleRunResponse($response, $run);
@@ -60,7 +60,7 @@ class Runner
     {
         $query = $this->em->createQuery('
             select j
-            from UrlRunner\Entity\Job j
+            from UrlCron\Entity\Job j
             where j.active = true
             and j.running = false
             and j.nextRunTime => now()

@@ -1,6 +1,6 @@
 <?php
 
-namespace UrlRunner\Entity;
+namespace UrlCron\Entity;
 
 /**
  * Class Request

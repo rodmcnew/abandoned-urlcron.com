@@ -1,4 +1,4 @@
-var module = angular.module('UrlRunner', ['ui.bootstrap.datetimepicker']);
+var module = angular.module('UrlCron', ['ui.bootstrap.datetimepicker']);
 
 module.controller('Job', function ($http, $scope) {
     var self = this;

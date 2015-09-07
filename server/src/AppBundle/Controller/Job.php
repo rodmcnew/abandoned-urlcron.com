@@ -1,6 +1,6 @@
 <?php
 
-namespace UrlRunner\Controller;
+namespace UrlCron\Controller;
 
 use Silex\Application;
 use Symfony\Component\HttpFoundation\Request;
@@ -27,13 +27,13 @@ class Job
 
         $query = $this->getEm()->createQuery('
             select j
-            from UrlRunner\Entity\Job j
+            from UrlCron\Entity\Job j
             join account a
             where a.accountId = :accountId
         ');
         $query->setParameter('accountId', (int)$accountId);
         /**
-         * @var $job \UrlRunner\Entity\Job
+         * @var $job \UrlCron\Entity\Job
          */
         $jobs = $query->getResult();
         if (empty($jobs)) {
@@ -52,7 +52,7 @@ class Job
 
         $query = $this->getEm()->createQuery('
             select j
-            from UrlRunner\Entity\Job j
+            from UrlCron\Entity\Job j
             join account a
             where j.jobId = :jobId
             and a.accountId = :accountId
@@ -60,7 +60,7 @@ class Job
         $query->setParameter('jobId', (int)$jobId);
         $query->setParameter('accountId', (int)$accountId);
         /**
-         * @var $job \UrlRunner\Entity\Job
+         * @var $job \UrlCron\Entity\Job
          */
         $job = $query->getResult()[0];
         if (empty($job)) {
