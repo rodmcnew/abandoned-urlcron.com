@@ -30,7 +30,7 @@ class Runner
 
         $promise = $client->postAsync(
             $job->getUrl(),
-            ['json' => ['key' => $job->getPostKey()]]
+            ['json' => ['message' => 'Thank you for using UrlRunner.com']]
         );
         $promise->then(function (Response $response) use ($run) {
             $this->handleRunResponse($response, $run);

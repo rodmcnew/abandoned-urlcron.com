@@ -48,12 +48,6 @@ class Job
      */
     protected $runInterval;
     /**
-     * @var string key to post to the job as defined by the user
-     *
-     * @ORM\Column(type="string", length=255)
-     */
-    protected $postKey;
-    /**
      * @var boolean true if job should run
      *
      * @ORM\Column(type="boolean")
@@ -162,22 +156,6 @@ class Job
     public function setRunInterval($runInterval)
     {
         $this->runInterval = $runInterval;
-    }
-
-    /**
-     * @return string
-     */
-    public function getPostKey()
-    {
-        return $this->postKey;
-    }
-
-    /**
-     * @param string $postKey
-     */
-    public function setPostKey($postKey)
-    {
-        $this->postKey = $postKey;
     }
 
     /**
