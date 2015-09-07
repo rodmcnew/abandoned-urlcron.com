@@ -9,11 +9,7 @@ namespace UrlRunner\Entity;
  * response
  *
  * @ORM\Entity
- * @ORM\Table(name="run",
- *     indexes={
- *         @ORM\Index(name="requestTime_ResponseTime", columns={"requestTime","responseTime"})
- *     }
- * )
+ * @ORM\Table(name="run")
  */
 class Run
 {

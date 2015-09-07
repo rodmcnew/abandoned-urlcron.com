@@ -38,7 +38,9 @@ class Runner
         });
 
         //Mark request as running
-        $run->setRequestTime(new \DateTime());
+        $now = new \DateTime();
+        $run->setRequestTime($now);
+        $job->setLastRunTime($now);
         $job->setRunning(true);
         $this->em->flush([$job, $run]);
     }

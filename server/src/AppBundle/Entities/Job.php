@@ -8,7 +8,7 @@ namespace UrlRunner\Entity;
  * @ORM\Entity
  * @ORM\Table(name="job",
  *     indexes={
- *         @ORM\Index(name="lastRunId_runInterval", columns={"lastRunId","runInterval"})
+ *         @ORM\Index(name="active_running_nextRunTime", columns={"active","running","nextRunTime"})
  *     }
  * )
  */
@@ -48,23 +48,40 @@ class Job
      */
     protected $runInterval;
     /**
-     * @var boolean true if job should run
+     * @var boolean true if job is enabled and should run
      *
      * @ORM\Column(type="boolean")
      */
     protected $active;
+
     /**
-     * @var \DateTime The first time this job should run
-     *
-     * @ORM\Column(type="datetime")
+     * @return \DateTime
      */
-    protected $firstRunTime;
+    public function getLastRunTime()
+    {
+        return $this->lastRunTime;
+    }
+
+    /**
+     * @param \DateTime $lastRunTime
+     */
+    public function setLastRunTime($lastRunTime)
+    {
+        $this->lastRunTime = $lastRunTime;
+    }
+
     /**
      * @var \DateTime The next time the job should run
      *
      * @ORM\Column(type="datetime")
      */
     protected $nextRunTime;
+    /**
+     * @var \DateTime The last time the job ran
+     *
+     * @ORM\Column(type="datetime")
+     */
+    protected $lastRunTime;
     /**
      * @var boolean true if job should run
      *
@@ -207,22 +224,6 @@ class Job
     }
 
     /**
-     * @return mixed
-     */
-    public function getLastRun()
-    {
-        return $this->lastRun;
-    }
-
-    /**
-     * @param mixed $lastRun
-     */
-    public function setLastRun($lastRun)
-    {
-        $this->lastRun = $lastRun;
-    }
-
-    /**
      * @return boolean
      */
     public function isRunning()
@@ -255,8 +256,12 @@ class Job
     {
         return [
             'id' => $this->id,
-            'running' => $this->running,
-            'nextRunTime' => $this->nextRunTime
+            'name' => $this->name,
+            'url' => $this->url,
+            'runInterval' => $this->runInterval,
+            'nextRunTime' => $this->nextRunTime,
+            'lastRunTime' => $this->lastRunTime,
+            'active' => $this->active,
         ];
     }
 }

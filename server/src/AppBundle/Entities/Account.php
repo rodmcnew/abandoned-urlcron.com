@@ -1,7 +1,12 @@
 <?php
 
 namespace UrlRunner\Entity;
-
+/**
+ * Class Account
+ *
+ * @ORM\Entity
+ * @ORM\Table(name="account")
+ */
 class Account
 {
     /**
@@ -51,6 +56,7 @@ class Account
     {
         $this->email = $email;
     }
+
     /**
      * @var int Auto-Incremented Primary Key
      *

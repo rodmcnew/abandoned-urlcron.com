@@ -7,19 +7,50 @@ use Symfony\Component\HttpFoundation\Request;
 
 class Job
 {
-    public function ensureAccountLoggedIn($accountId)
+    /**
+     * @return \Doctrine\ORM\EntityManager
+     * @TODO remove me for speed later
+     */
+    public function getEm()
+    {
+        return $this->getDoctrine()->getManager();
+    }
+
+    public function ensureCanAccessAccount($accountId)
     {
         die('ensureAccountLoggedIn not implemented');
     }
 
-    public function get(Request $request, Application $app, $accountId, $jobId)
+    public function getList($accountId)
     {
-        $this->ensureAccountLoggedIn($accountId);
-        /*
-         * @var $em Doctrine\ORM\EntityManager
+        $this->ensureCanAccessAccount($accountId);
+
+        $query = $this->getEm()->createQuery('
+            select j
+            from UrlRunner\Entity\Job j
+            join account a
+            where a.accountId = :accountId
+        ');
+        $query->setParameter('accountId', (int)$accountId);
+        /**
+         * @var $job \UrlRunner\Entity\Job
          */
-        $em = $app['orm.em'];
-        $query = $this->em->createQuery('
+        $jobs = $query->getResult();
+        if (empty($jobs)) {
+            return json_encode(['message' => 'Not Found'], 404);
+        }
+        $restJobs = [];
+        foreach ($jobs as $job) {
+            $restJobs[] = $job->getRestRes();
+        }
+        return json_encode($restJobs);
+    }
+
+    public function get($accountId, $jobId)
+    {
+        $this->ensureCanAccessAccount($accountId);
+
+        $query = $this->getEm()->createQuery('
             select j
             from UrlRunner\Entity\Job j
             join account a
@@ -32,10 +63,9 @@ class Job
          * @var $job \UrlRunner\Entity\Job
          */
         $job = $query->getResult()[0];
-        if (!$job) {
-            return $app->json(['message' => 'Not Found'], 404);
+        if (empty($job)) {
+            return json_encode(['message' => 'Not Found'], 404);
         }
-
-        return $app->json($job->getRestRes());
+        return json_encode($job->getRestRes());
     }
 }
