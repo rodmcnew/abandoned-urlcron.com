@@ -8,6 +8,8 @@
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.5/angular.min.js"></script>
     <script src="vendor/datetimepicker.js"></script>
     <script src="module.js"></script>
+    <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.8.3/moment.min.js"></script>
+    <script src="job.js"></script>
     <title>UrlCron - The Simple Web Cron</title>
     <meta name="description"
           content="If your website has a task or job that needs to run periodically, UrlCron can help.">
@@ -38,6 +40,164 @@
     </div>
     <br>
 
+    <div class="row" ng-controller="Job">
+        <div class="col-sm-12">
+            <div class="panel panel-default">
+                <div class="panel-heading"><h3 class="panel-title">Try UrlCron Now</h3></div>
+                <div class="panel-body">
+                    <form class="form-horizontal">
+
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">Job name</label>
+
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control" placeholder="Database Archive Process">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">Job url</label>
+
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control"
+                                       placeholder="https://example.com/jobs/archiveDatabase.php">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">Run every</label>
+
+                            <div class="col-sm-10">
+                                <select class="form-control">
+                                    <option value="10">10 Minutes</option>
+                                    <option value="15">15 Minutes</option>
+                                    <option value="20">20 Minutes</option>
+                                    <option value="30">30 Minutes</option>
+                                    <option value="60">1 Hour</option>
+                                    <option value="120">2 Hours</option>
+                                    <option value="180">3 Hours</option>
+                                    <option value="240">4 Hours</option>
+                                    <option value="360">6 Hours</option>
+                                    <option value="480">8 Hours</option>
+                                    <option value="720">12 Hours</option>
+                                    <option selected value="1440">1 Day</option>
+                                    <option value="@TODO">2 Days</option>
+                                    <option value="@TODO">3 Days</option>
+                                    <option value="@TODO">4 Days</option>
+                                    <option value="@TODO">5 Days</option>
+                                    <option value="@TODO">6 Days</option>
+                                    <option value="@TODO">7 Days</option>
+                                    <option value="@TODO">14 Days</option>
+                                    <option value="@TODO">15 Days</option>
+                                    <option value="@TODO">30 Days</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">Next run time</label>
+
+                            <div class="col-sm-10">
+                                <div class="dropdown">
+                                    <a class="dropdown-toggle" id="dropdown2" role="button" data-toggle="dropdown"
+                                       data-target="#"
+                                       href="#">
+                                        <div class="input-group"><input type="text" class="form-control"
+                                                                        data-ng-model="job.nextRunTime"><span
+                                                class="input-group-addon"><i
+                                                class="glyphicon glyphicon-calendar"></i></span>
+                                        </div>
+                                    </a>
+                                    <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
+                                        <datetimepicker data-ng-model="job.nextRunTime"
+                                                        data-datetimepicker-config="{ dropdownSelector: '#dropdown2' }"/>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="accordion" id="accordion2">
+                            <div class="accordion-group">
+                                <div class="text-right" style="clear:both">
+                                    <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2"
+                                       href="#collapseOne" style="float:right">
+                                        Advanced Job Settings
+                                    </a>
+                                </div>
+                                <div id="collapseOne" class="accordion-body collapse out">
+                                    <br><br>
+
+                                    <div class="accordion-inner">
+                                        <div class="form-group">
+                                            <label class="col-sm-2 control-label">Job enabled </label>
+
+                                            <div class="col-sm-10">
+                                                <select class="form-control">
+                                                    <option value="1">Yes</option>
+                                                    <option value="0">No</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-sm-2 control-label">HTTP request type </label>
+
+                                            <div class="col-sm-10">
+                                                <select class="form-control">
+                                                    <option value="1">Get</option>
+                                                    <option value="2">Post</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="text-right" style="clear:both">
+                            <button onclick="$('#collapseAdditionalNewAccountForm').collapse();$(this).hide();"
+                                    type="button" class="btn btn-primary" style="margin-top:15px">Create Job
+                            </button>
+                        </div>
+                        <div id="collapseAdditionalNewAccountForm" class="accordion-body collapse out">
+
+                            <h3>Don't have a UrlCron account yet?</h3>
+
+                            <p>Create a new free account below or <a href="#login">login</a>.</p>
+
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">Email address</label>
+
+                                <div class="col-sm-10">
+                                    <input type="text" class="form-control" placeholder="john@example.com">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">Create password</label>
+
+                                <div class="col-sm-10">
+                                    <input type="password" class="form-control"
+                                           placeholder="Must be at least 5 characters">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">Account Type</label>
+
+                                <div class="col-sm-10">
+                                    <select class="form-control">
+                                        <option value="0">Free Plan - 10 Jobs (10 sec timeout)</option>
+                                        <!--<option value="1">Silver Plan - $20/yr - 30 Jobs (5 min timeout)</option>-->
+                                        <!--<option value="2">Gold Plan - $50/yr - 60 Jobs (30 min timeout)</option>-->
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="text-right" style="clear:both">
+                                <a class="btn btn-primary" href="coming-soon.html">Create Job and New
+                                    Account</a>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <h1>Pricing and Plans</h1>
+
     <div class="row">
         <div class="col-sm-12">
             <div class="panel panel-default">
@@ -45,13 +205,15 @@
                 <div class="panel-body">
                     <ul>
                         <li>Let your jobs as frequent as every 10 minutes</li>
-                        <li>View output logs of the last 20 runs of each job</li>
+                        <li>View output logs of the last 10 runs of each job</li>
                         <li>Your choice of "post" or "get" http request types</li>
                     </ul>
                 </div>
             </div>
         </div>
     </div>
+    <a name="/pricing-and-plans"></a>
+
     <div class="row">
         <div class="col-sm-4">
             <div class="panel panel-primary">
@@ -60,7 +222,7 @@
                     <ul>
                         <li>Free</li>
                         <li>Up to 10 jobs</li>
-                        <li>5 second timeout</li>
+                        <li>10 second timeout</li>
                     </ul>
                     <div class="text-center">
                         <a class="btn btn-primary" href="coming-soon.html">Try Now</a>
